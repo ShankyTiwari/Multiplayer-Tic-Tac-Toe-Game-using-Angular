@@ -1,0 +1,51 @@
+h5 {
+    font: 33px sans-serif;
+    margin-top: 30px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    z-index: 1;
+    color: #dfdfdf;
+    margin-bottom: 20px;
+}
+
+h5 :before {
+    border-top: 2px solid #dfdfdf;
+    content: "";
+    margin: 0 auto;
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 95%;
+    z-index: -1;
+}
+
+h5  span {
+    background: #fff;
+    padding: 0 15px;
+}
+
+.room-list{
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.room-number {
+    margin-right: 5px;
+}
+
+.room-number a:hover{
+    color: #fff;
+    cursor: pointer;
+}
+
+.game-loader{
+    margin-left: 40%;
+}
+
+
+
+
+

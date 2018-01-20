@@ -1,20 +1,78 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!-- 
+	@author Shashank Tiwari 
+	Multiplayer Tic-Tac-Toe Game using Angular, Nodejs 
+-->
 
+<!-- A Play Ground, where User can with each other starts  -->
+<div class="container">
+	<div class="row heading-row">
+		<div class="col-md-12 text-center app-heading">
+			<h2>{{title}}</h2>
+		</div>
+		<div class="col-md-6 text-center">
+			<div class="player-heading" [class.current-player]="displayPlayerTurn">
+				Player 1
+			</div>
+		</div>
+		<div class="col-md-6 text-center">
+			<div class="player-heading"  [class.current-player]="!displayPlayerTurn">
+				Player 2
+			</div>
+		</div>
+	</div>	
+	<div class="row game-row">
+		<div class="text-center game-container">
+			<table id="game" class="game-grid" #game>
+				<tr *ngFor="let iterationNumber of gameGrid">
+					<td *ngFor="let number of iterationNumber"
+ 						class="grid-{{number}}"
+						id="grid{{number}}" (click)="play(number)">
+							{{ renderPlayedText(number)}}
+					</td>
+				</tr>
+			</table>
+			<br/>
+			<h6 class="text-center">You are in Room Number {{roomNumber}}.</h6>
+		</div>
+	</div>
+</div>
+<!-- A Play Ground, where User can with each other ends  -->
+
+
+
+<!-- Modal to create and select Rooms starts -->
+<ng-template #content>
+	<div class="modal-header">
+		<span>Total Rooms :{{totalRooms}}</span>
+  	</div>
+  	<div class="modal-body">
+    	<div class="container">
+			<div class="join-game" [hidden]="roomNumber > 0 ? true :false">
+				<div class="room-list">
+					<h6 class="text-center">Available Rooms to Join</h6>
+					<ul class="nav nav-pills">
+						<li class="nav-item room-number" *ngFor="let number of emptyRooms">
+							<a class="nav-link active" title="Join room Number {{number}}" (click)="joinRoom(number)">#{{number}}</a>
+						</li>
+					</ul>
+				</div>
+				<div class="create-room text-center">
+					<h5>
+						<span>OR</span>
+					</h5>
+					<button class="btn btn-primary" (click)="createRoom()"> Create New Room</button>
+				</div>
+			</div>
+			<br>
+			<div class="player-waitng" [hidden]="roomNumber > 0 ? false :true">
+				<h2 class="text-center">Waiting for player to join</h2>
+				<br/>
+				<img class="game-loader" src="assets/img/loader.gif">
+				<br/>
+				<br/>
+				<h6 class="text-center">You are in Room Number {{roomNumber}}, Tell your friend to join Room Number {{roomNumber}}</h6>
+			</div>
+		</div>
+  	</div>
+</ng-template>
+<!-- Modal to create and select Rooms ends -->
